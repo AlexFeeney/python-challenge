@@ -31,34 +31,41 @@ with open('Resources/election_data.csv') as file_obj:
         candidateVoteDict[candidate] +=1
    
    
-
-print(candidates)
-print(candidateVoteDict)
-print(""" 
-Election Results 
-----------------------------    
-      """)
-print(f'Total Votes: {voteCount}\n')
-
-
-for c in candidateVoteDict:
-    
-    v = candidateVoteDict[c]
-    v_percent = float(v)/float(voteCount)*100
-    
-    if v > winndingVoteCount:
-        winndingVoteCount = v
-        winningCandidate = c
-    print(f'{c}: {v_percent:.3f}% ({v})\n')
-
-print('---------------------\n')
-print(f'Winner: {winningCandidate}\n')
-print('---------------------\n')
-
-
 #write to file
 with open('analysis/results.txt', 'w') as txt_file:
     
-    test = 'ok1'
+    electionResults = ('\nElection Results\n\n----------------------------')
+    print(electionResults)
+    txt_file.write(electionResults)
     
-    txt_file.write(test)
+    total = (f'\nTotal Votes: {voteCount}\n\n---------------------\n')
+    print(total)
+    txt_file.write(total)
+    #for each candidate in the dictionary 
+    for c in candidateVoteDict:
+        
+        #count of the votes for each dictionary item
+        v = candidateVoteDict[c]
+        #calculate the percentage of votes for this candidate against the total. 
+        v_percent = float(v)/float(voteCount)*100
+        
+        #check if this candidate is the winner
+        if v > winndingVoteCount:
+            winndingVoteCount = v
+            winningCandidate = c
+        
+        candidateLog = f'{c}: {v_percent:.3f}% ({v})\n'
+        print(candidateLog)
+        txt_file.write(candidateLog)
+
+    line = '---------------------\n'
+    print(line)
+    txt_file.write(line)
+    
+    winnerLog = f'Winner: {winningCandidate}\n'
+    print(winnerLog)
+    txt_file.write(winnerLog)
+    
+    print(line)
+    txt_file.write(line)
+   
