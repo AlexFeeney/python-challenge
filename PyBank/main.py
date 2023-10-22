@@ -62,26 +62,37 @@ with open('Resources/budget_data.csv') as file_obj:
        if revChange < greatestDecrease: 
            greatestDecrease = revChange
            greatestDecreaseDate = row[0]
-           
-       print(row)
-           
+                    
     revAverage = sum(revChangeList)/len(revChangeList)
-print(revChangeList)
-#output results to terminal
-print("""
-Financial Analysis
 
----------------------------------------------------
-""")
-print(f'Total Months: {row_counter} \n')
-print(f'Total: ${total}\n')
-print(f'Average Change: ${revAverage} \n')
-print(f'Greatest Increase in Profits: {greatestIncreaseDate} (${greatestIncrease}) \n')
-print(f'Greatest Decrease in Profits: {greatestDecreaseDate} (${greatestDecrease}) \n')
-
-#output results to text log file. 
-
-
-
-
-
+with open('analysis/results.txt', 'w') as txt_file:
+    
+    #output results to terminal and export results to file
+    headerOut = '\nFinancial Analysis\n\n---------------------------------------------------\n'
+    print(headerOut)
+    txt_file.write(headerOut)
+    
+    #write and print total months
+    totalMonths = f'Total Months: {row_counter} \n'
+    print(totalMonths)
+    txt_file.write(totalMonths)
+    
+    #total counter print and write to txt
+    totalCount = f'Total: ${total}\n'
+    print(totalCount)
+    txt_file.write(totalCount)
+    
+    #print average 
+    totalAverage = f'Average Change: ${revAverage} \n'
+    print(totalAverage)
+    txt_file.write(totalAverage)
+    
+    greatInc = f'Greatest Increase in Profits: {greatestIncreaseDate} (${greatestIncrease}) \n'
+    print(greatInc)
+    txt_file.write(greatInc)
+    
+    greatDec = f'Greatest Decrease in Profits: {greatestDecreaseDate} (${greatestDecrease}) \n'
+    print(greatDec)
+    txt_file.write(greatDec)
+ 
+  
